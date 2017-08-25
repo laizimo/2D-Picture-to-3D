@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b7d7acb8-8af7-48c0-aa0d-51358185a2ab" name="Default" comment="" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <splitter split-orientation="horizontal" split-proportion="0.5640625">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="PicShower.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/PicShower.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="5643">
+                  <caret line="380" column="11" lean-forward="false" selection-start-line="218" selection-start-column="0" selection-end-line="380" selection-end-column="11" />
+                  <folding>
+                    <element signature="e#8788#9336#0" expanded="false" />
+                    <element signature="e#9479#10054#0" expanded="false" />
+                    <element signature="e#10193#10764#0" expanded="false" />
+                    <element signature="e#10914#11007#0" expanded="false" />
+                    <element signature="e#11116#11209#0" expanded="false" />
+                    <element signature="e#11327#11423#0" expanded="false" />
+                    <element signature="e#11550#11649#0" expanded="false" />
+                    <element signature="e#11758#11851#0" expanded="false" />
+                    <element signature="e#11987#12089#0" expanded="false" />
+                    <element signature="e#12198#12291#0" expanded="false" />
+                    <element signature="e#12399#12494#0" expanded="false" />
+                    <element signature="e#13277#14053#0" expanded="false" />
+                    <element signature="e#14126#14138#0" expanded="false" />
+                    <element signature="e#14333#15009#0" expanded="false" />
+                    <element signature="e#17963#18320#0" expanded="false" />
+                    <element signature="e#18401#19469#0" expanded="false" />
+                    <element signature="e#19600#25633#0" expanded="false" />
+                    <element signature="e#25662#27531#0" expanded="false" />
+                    <element signature="e#27560#27669#0" expanded="false" />
+                    <element signature="e#27697#28432#0" expanded="false" />
+                    <element signature="e#28478#30271#0" expanded="false" />
+                    <element signature="e#30302#30612#0" expanded="false" />
+                    <element signature="e#30652#30733#0" expanded="false" />
+                    <element signature="e#31900#34141#0" expanded="false" />
+                    <element signature="e#34289#35591#0" expanded="false" />
+                    <element signature="e#35631#35713#0" expanded="false" />
+                    <element signature="e#36214#36371#0" expanded="false" />
+                    <element signature="e#36381#36428#0" expanded="false" />
+                    <element signature="e#37220#37232#0" expanded="false" />
+                    <element signature="e#37273#37285#0" expanded="false" />
+                    <element signature="e#38171#38375#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="shadow.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/shadow.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="380">
+                  <caret line="565" column="44" lean-forward="false" selection-start-line="565" selection-start-column="44" selection-end-line="565" selection-end-column="44" />
+                  <folding>
+                    <element signature="e#6550#7182#0" expanded="false" />
+                    <element signature="e#12101#12434#0" expanded="false" />
+                    <element signature="e#12511#13504#0" expanded="false" />
+                    <element signature="e#17037#18258#0" expanded="false" />
+                    <element signature="e#18294#18368#0" expanded="false" />
+                    <element signature="e#18402#18466#0" expanded="false" />
+                    <element signature="e#25997#26701#0" expanded="false" />
+                    <element signature="e#26770#26778#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="three.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/three.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="323">
+                  <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="imageData.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/userdata/goodream/img/imageData.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="19">
+                  <caret line="1" column="12" lean-forward="false" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="PicShowerAR.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/PicShowerAR.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="17917">
+                  <caret line="943" column="0" lean-forward="false" selection-start-line="943" selection-start-column="0" selection-end-line="943" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="basic.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/basic.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="3249">
+                  <caret line="238" column="37" lean-forward="false" selection-start-line="238" selection-start-column="28" selection-end-line="238" selection-end-column="37" />
+                  <folding>
+                    <element signature="n#style#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+                    <element signature="e#5184#5816#0" expanded="false" />
+                    <element signature="e#5842#8846#0" expanded="false" />
+                    <element signature="e#6987#6989#0" expanded="false" />
+                    <element signature="e#9234#10883#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ARCamera.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ARCamera.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="5149">
+                  <caret line="378" column="42" lean-forward="false" selection-start-line="378" selection-start-column="42" selection-end-line="378" selection-end-column="42" />
+                  <folding>
+                    <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#input#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                    <element signature="n#script#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                    <element signature="e#2350#2646#0" expanded="false" />
+                    <element signature="e#3032#3467#0" expanded="false" />
+                    <element signature="e#3652#4182#0" expanded="false" />
+                    <element signature="e#4232#4546#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mobile-performance.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/mobile-performance.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1216">
+                  <caret line="64" column="35" lean-forward="false" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="35" />
+                  <folding>
+                    <element signature="e#5243#5576#0" expanded="false" />
+                    <element signature="e#5653#6643#0" expanded="false" />
+                    <element signature="e#6672#7312#0" expanded="false" />
+                    <element signature="e#7443#13196#0" expanded="false" />
+                    <element signature="e#13221#14905#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="ar-in-webvr.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ar-in-webvr.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1520">
+                  <caret line="80" column="54" lean-forward="false" selection-start-line="80" selection-start-column="54" selection-end-line="80" selection-end-column="54" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ar.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/ar/ar.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="4123">
+                  <caret line="2559" column="38" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="2662" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#805236#857601#0" expanded="false" />
+                    <element signature="e#857806#864375#0" expanded="false" />
+                    <element signature="e#866467#868261#0" expanded="false" />
+                    <element signature="e#868319#871776#0" expanded="false" />
+                    <element signature="e#872094#874125#0" expanded="false" />
+                    <element signature="e#874553#875035#0" expanded="false" />
+                    <element signature="e#875276#877691#0" expanded="false" />
+                    <element signature="e#877945#879119#0" expanded="false" />
+                    <element signature="e#879383#879503#0" expanded="false" />
+                    <element signature="e#879580#879845#0" expanded="false" />
+                    <element signature="e#880273#880320#0" expanded="false" />
+                    <element signature="e#880393#880811#0" expanded="false" />
+                    <element signature="e#881077#881455#0" expanded="false" />
+                    <element signature="e#881699#882535#0" expanded="false" />
+                    <element signature="e#882766#882980#0" expanded="false" />
+                    <element signature="e#883041#883254#0" expanded="false" />
+                    <element signature="e#883486#883587#0" expanded="false" />
+                    <element signature="e#883653#883752#0" expanded="false" />
+                    <element signature="e#883817#883916#0" expanded="false" />
+                    <element signature="e#883989#884831#0" expanded="false" />
+                    <element signature="e#885067#885994#0" expanded="false" />
+                    <element signature="e#886261#886819#0" expanded="false" />
+                    <element signature="e#887085#887993#0" expanded="false" />
+                    <element signature="e#888263#890664#0" expanded="false" />
+                    <element signature="e#890927#892751#0" expanded="false" />
+                    <element signature="e#892825#896561#0" expanded="false" />
+                    <element signature="e#893171#893352#0" expanded="false" />
+                    <element signature="e#893636#894845#0" expanded="false" />
+                    <element signature="e#894848#894926#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ammo.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/ammo.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="418">
+                  <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="arRead.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/js/arRead.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="2565">
+                  <caret line="135" column="24" lean-forward="false" selection-start-line="135" selection-start-column="23" selection-end-line="135" selection-end-column="24" />
+                  <folding>
+                    <element signature="e#59807#66443#0" expanded="false" />
+                    <element signature="e#68711#70669#0" expanded="false" />
+                    <element signature="e#70727#74498#0" expanded="false" />
+                    <element signature="e#74825#76966#0" expanded="false" />
+                    <element signature="e#77394#77897#0" expanded="false" />
+                    <element signature="e#78138#80737#0" expanded="false" />
+                    <element signature="e#80991#82264#0" expanded="false" />
+                    <element signature="e#82528#82654#0" expanded="false" />
+                    <element signature="e#82731#83011#0" expanded="false" />
+                    <element signature="e#83439#83492#0" expanded="false" />
+                    <element signature="e#83565#84011#0" expanded="false" />
+                    <element signature="e#84277#84711#0" expanded="false" />
+                    <element signature="e#84955#85897#0" expanded="false" />
+                    <element signature="e#86128#86354#0" expanded="false" />
+                    <element signature="e#86415#86640#0" expanded="false" />
+                    <element signature="e#86872#86982#0" expanded="false" />
+                    <element signature="e#87048#87156#0" expanded="false" />
+                    <element signature="e#87221#87329#0" expanded="false" />
+                    <element signature="e#87402#88308#0" expanded="false" />
+                    <element signature="e#88544#89344#0" expanded="false" />
+                    <element signature="e#89610#90196#0" expanded="false" />
+                    <element signature="e#90462#91459#0" expanded="false" />
+                    <element signature="e#96729#100786#0" expanded="false" />
+                    <element signature="e#97091#97311#0" expanded="false" />
+                    <element signature="e#97615#98947#0" expanded="false" />
+                    <element signature="e#98953#99031#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="arcode.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/arcode.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="579">
+                  <caret line="245" column="14" lean-forward="false" selection-start-line="245" selection-start-column="14" selection-end-line="245" selection-end-column="14" />
+                  <folding>
+                    <element signature="e#3821#3846#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>canvasWith</find>
+      <find>render</find>
+      <find>anchor</find>
+      <find>collisionConfiguration</find>
+      <find>clothPos</find>
+      <find>mouse</find>
+      <find>arm</find>
+      <find>hinge</find>
+      <find>Physics</find>
+      <find>patternUrl</find>
+      <find>anti</find>
+      <find>detect</find>
+      <find>con</find>
+      <find>marker</find>
+      <find>onRenderFct</find>
+      <find>onRenderFcts</find>
+      <find>detectMarker</find>
+      <find>myDebugger</find>
+      <find>getMarker</find>
+      <find>control</find>
+      <find>GUI_init</find>
+      <find>setDebugMode</find>
+      <find>mode</find>
+      <find>patternMarkers</find>
+      <find>THREEx</find>
+      <find>screenWidth</find>
+      <find>canvas</find>
+      <find>generateArCodeCanvas</find>
+      <find>pdf</find>
+      <find>url.match</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="E:/OpenSource_Git/three.js/examples - 副本/webgl_materials_texture_filters.html" />
+        <option value="E:/外包项目文件/书源码/Programming3DApplications-master/Programming3DApplications-master/Chapter 3/threejscube.html" />
+        <option value="vm:259" />
+        <option value="$PROJECT_DIR$/aa.html" />
+        <option value="E:/OpenSource_Git/three.js/examples - 副本/webgl_materials_texture_anisotropy.html" />
+        <option value="$PROJECT_DIR$/Test.html" />
+        <option value="E:/OpenSource_Git/three.js/examples - 副本/canvas_geometry_panorama_fisheye.html" />
+        <option value="E:/外包项目文件/书源码/Programming3DApplications-master/Programming3DApplications-master/Chapter 7/canvasbasic.html" />
+        <option value="E:/OpenSource_Git/three.js/examples/webgl_materials_parallaxmap.html" />
+        <option value="E:/OpenSource_Git/three.js/examples/webgl_physics_cloth - 副本.html" />
+        <option value="E:/OutsourcingProjectFiles/Sandbox/three.js/physics/webgl_physics_cloth.html" />
+        <option value="E:/OpenSource_Git/three.js/examples/webgl_physics_cloth.html" />
+        <option value="E:/OutsourcingProjectFiles/Sandbox/three.js/physics/PicShower.html" />
+        <option value="$PROJECT_DIR$/GetCameraPic.html" />
+        <option value="E:/OutsourcingProjectFiles/Sandbox/three.js/physics/GetCameraPic.html" />
+        <option value="E:/OutsourcingProjectFiles/Sandbox/threex.webar/threex.webcamgrabbing.js" />
+        <option value="E:/OutsourcingProjectFiles/Sandbox/threex.webar/examples/basic.html" />
+        <option value="E:/OpenSource_Git/three.js/examples - 副本/webgl_depth_texture.html" />
+        <option value="E:/OpenSource_Git/three.js/examples - 副本/webgl_interactive_raycasting_points.html" />
+        <option value="E:/OpenSource_Git/three.js/examples - 副本/webgl_physics_volume.html" />
+        <option value="E:/OpenSource_Git/three.js/examples - 副本/webgl_physics_cloth.html" />
+        <option value="$PROJECT_DIR$/PicShowerPhone.html" />
+        <option value="E:/OpenSource_Git/three.js/examples/webgl_effects_stereo.html" />
+        <option value="E:/OpenSource_Git/three.js/examples - 副本/webgl_lights_spotlight.html" />
+        <option value="$PROJECT_DIR$/ARCameraTest.html" />
+        <option value="$PROJECT_DIR$/ARCamera.html" />
+        <option value="$PROJECT_DIR$/mobile-performance.html" />
+        <option value="$PROJECT_DIR$/ar-in-webvr.html" />
+        <option value="$PROJECT_DIR$/PicShowerARnew.html" />
+        <option value="$PROJECT_DIR$/PicShowerAR.html" />
+        <option value="$PROJECT_DIR$/basic.html" />
+        <option value="$PROJECT_DIR$/basic_2.html" />
+        <option value="$PROJECT_DIR$/js/ammo.js" />
+        <option value="$PROJECT_DIR$/PicShower.html" />
+        <option value="$PROJECT_DIR$/js/arRead.js" />
+        <option value="$PROJECT_DIR$/arcode.html" />
+        <option value="$PROJECT_DIR$/userdata/goodream/img/imageData.json" />
+        <option value="$PROJECT_DIR$/shadow.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="784" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Three.js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Three.js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Three.js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Three.js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="userdata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="goodream" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Three.js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Three.js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="nodejs_interpreter_path" value="D:/Develop/node.js/node" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Program_Data\Web\Three.js\js" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.Test.html">
+    <configuration default="false" name="Test.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Three.js/Test.html">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.Test.html" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.Test.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b7d7acb8-8af7-48c0-aa0d-51358185a2ab" name="Default" comment="" />
+      <created>1491313343848</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1491313343848</updated>
+      <workItem from="1491313345275" duration="5667000" />
+      <workItem from="1491347887096" duration="645000" />
+      <workItem from="1491362148849" duration="6873000" />
+      <workItem from="1491377605939" duration="9277000" />
+      <workItem from="1491389757243" duration="14253000" />
+      <workItem from="1491437579292" duration="96000" />
+      <workItem from="1491438004259" duration="4651000" />
+      <workItem from="1491444327618" duration="15887000" />
+      <workItem from="1491476493936" duration="599000" />
+      <workItem from="1491480134046" duration="7968000" />
+      <workItem from="1491492177793" duration="11182000" />
+      <workItem from="1491533289445" duration="4832000" />
+      <workItem from="1491544774600" duration="30026000" />
+      <workItem from="1491670089403" duration="8378000" />
+      <workItem from="1491800476402" duration="792000" />
+      <workItem from="1491865533480" duration="174000" />
+      <workItem from="1491866636911" duration="69507000" />
+      <workItem from="1492011864277" duration="4894000" />
+      <workItem from="1492042012871" duration="5184000" />
+      <workItem from="1492053127394" duration="33613000" />
+      <workItem from="1492137424379" duration="5842000" />
+      <workItem from="1492148717958" duration="40833000" />
+      <workItem from="1492328469709" duration="898000" />
+      <workItem from="1492407668130" duration="10792000" />
+      <workItem from="1492421941570" duration="8225000" />
+      <workItem from="1492473968991" duration="830000" />
+      <workItem from="1492476185602" duration="16470000" />
+      <workItem from="1492495448243" duration="12081000" />
+      <workItem from="1492569996821" duration="47000" />
+      <workItem from="1492570306302" duration="10972000" />
+      <workItem from="1492592535966" duration="6052000" />
+      <workItem from="1492744383731" duration="949000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="348489000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11493412" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35983264" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="36" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://E:/OutsourcingProjectFiles/Sandbox/three.js/physics/PicShower.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples/webvr_cubes.html" />
+    <entry file="file://E:/OutsourcingProjectFiles/Sandbox/threex.webar/threex.webcamgrabbing.js" />
+    <entry file="file://E:/OutsourcingProjectFiles/Sandbox/threex.webar/examples/basic.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples/webgl_physics_terrain.html" />
+    <entry file="file://E:/OpenSource_Git/ammo.js/tests/3.js" />
+    <entry file="file://E:/OpenSource_Git/ammo.js/builds/ammo.js" />
+    <entry file="file://E:/OpenSource_Git/ammo.js/examples/hello_world.js" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_geometry_terrain_raycast.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_depth_texture.html" />
+    <entry file="file://E:/OutsourcingProjectFiles/Sandbox/three.js/physics/GetCameraPic.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_octree_raycasting.html" />
+    <entry file="file://$PROJECT_DIR$/PicShowerPhone.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_physics_volume.html" />
+    <entry file="file://E:/OutsourcingProjectFiles/Sandbox/three.js/physics/css3d_panorama_deviceorientation.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_interactive_raycasting_points.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_materials_cubemap.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_loader_scene.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/js/loaders/RGBELoader.js" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples/webgl_materials_texture_filters.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_physics_cloth.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/test/unit/src/renderers/shaders/ShaderLib.js" />
+    <entry file="file://E:/OpenSource_Git/three.js/src/renderers/shaders/ShaderLib.js" />
+    <entry file="file://$PROJECT_DIR$/js/stats.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="4" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/OpenSource_Git/dat.gui.js" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_rawgit.com_mrdoob_three.js_dev_build_three.js" />
+    <entry file="file://E:/OpenSource_Git/ammo_2.js" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webgl_lights_spotlight.html" />
+    <entry file="file://$PROJECT_DIR$/js/jsfeat/jsfeat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="3785" column="36" lean-forward="false" selection-start-line="3785" selection-start-column="36" selection-end-line="3785" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/dat.gui.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="12" column="160" lean-forward="false" selection-start-line="12" selection-start-column="160" selection-end-line="12" selection-end-column="160" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery-1.9.1/jquery-1.9.1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="946" column="0" lean-forward="false" selection-start-line="946" selection-start-column="0" selection-end-line="946" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DOMCore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10380">
+          <caret line="519" column="0" lean-forward="false" selection-start-line="519" selection-start-column="0" selection-end-line="519" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PicShowerARnew.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples - 副本/webvr_cubes.html" />
+    <entry file="file://E:/OpenSource_Git/three.js/examples/webgl_effects_stereo.html" />
+    <entry file="file://$PROJECT_DIR$/ARCameraTest.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-463">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-performance.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1216">
+          <caret line="64" column="35" lean-forward="false" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="35" />
+          <folding>
+            <element signature="e#5243#5576#0" expanded="false" />
+            <element signature="e#5653#6643#0" expanded="false" />
+            <element signature="e#6672#7312#0" expanded="false" />
+            <element signature="e#7443#13196#0" expanded="false" />
+            <element signature="e#13221#14905#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PicShowerAR.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17917">
+          <caret line="943" column="0" lean-forward="false" selection-start-line="943" selection-start-column="0" selection-end-line="943" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/basic_2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="128" column="4" lean-forward="false" selection-start-line="128" selection-start-column="4" selection-end-line="139" selection-end-column="27" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARCamera.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5149">
+          <caret line="378" column="42" lean-forward="false" selection-start-line="378" selection-start-column="42" selection-end-line="378" selection-end-column="42" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#script#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#2350#2646#0" expanded="false" />
+            <element signature="e#3032#3467#0" expanded="false" />
+            <element signature="e#3652#4182#0" expanded="false" />
+            <element signature="e#4232#4546#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/basic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3249">
+          <caret line="238" column="37" lean-forward="false" selection-start-line="238" selection-start-column="28" selection-end-line="238" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="e#5184#5816#0" expanded="false" />
+            <element signature="e#5842#8846#0" expanded="false" />
+            <element signature="e#6987#6989#0" expanded="false" />
+            <element signature="e#9234#10883#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="143" column="0" lean-forward="false" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/ammo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ar-in-webvr.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1520">
+          <caret line="80" column="54" lean-forward="false" selection-start-line="80" selection-start-column="54" selection-end-line="80" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/ar/ar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4123">
+          <caret line="2559" column="38" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="2662" selection-end-column="0" />
+          <folding>
+            <element signature="e#805236#857601#0" expanded="false" />
+            <element signature="e#857806#864375#0" expanded="false" />
+            <element signature="e#866467#868261#0" expanded="false" />
+            <element signature="e#868319#871776#0" expanded="false" />
+            <element signature="e#872094#874125#0" expanded="false" />
+            <element signature="e#874553#875035#0" expanded="false" />
+            <element signature="e#875276#877691#0" expanded="false" />
+            <element signature="e#877945#879119#0" expanded="false" />
+            <element signature="e#879383#879503#0" expanded="false" />
+            <element signature="e#879580#879845#0" expanded="false" />
+            <element signature="e#880273#880320#0" expanded="false" />
+            <element signature="e#880393#880811#0" expanded="false" />
+            <element signature="e#881077#881455#0" expanded="false" />
+            <element signature="e#881699#882535#0" expanded="false" />
+            <element signature="e#882766#882980#0" expanded="false" />
+            <element signature="e#883041#883254#0" expanded="false" />
+            <element signature="e#883486#883587#0" expanded="false" />
+            <element signature="e#883653#883752#0" expanded="false" />
+            <element signature="e#883817#883916#0" expanded="false" />
+            <element signature="e#883989#884831#0" expanded="false" />
+            <element signature="e#885067#885994#0" expanded="false" />
+            <element signature="e#886261#886819#0" expanded="false" />
+            <element signature="e#887085#887993#0" expanded="false" />
+            <element signature="e#888263#890664#0" expanded="false" />
+            <element signature="e#890927#892751#0" expanded="false" />
+            <element signature="e#892825#896561#0" expanded="false" />
+            <element signature="e#893171#893352#0" expanded="false" />
+            <element signature="e#893636#894845#0" expanded="false" />
+            <element signature="e#894848#894926#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/arRead.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2565">
+          <caret line="135" column="24" lean-forward="false" selection-start-line="135" selection-start-column="23" selection-end-line="135" selection-end-column="24" />
+          <folding>
+            <element signature="e#59807#66443#0" expanded="false" />
+            <element signature="e#68711#70669#0" expanded="false" />
+            <element signature="e#70727#74498#0" expanded="false" />
+            <element signature="e#74825#76966#0" expanded="false" />
+            <element signature="e#77394#77897#0" expanded="false" />
+            <element signature="e#78138#80737#0" expanded="false" />
+            <element signature="e#80991#82264#0" expanded="false" />
+            <element signature="e#82528#82654#0" expanded="false" />
+            <element signature="e#82731#83011#0" expanded="false" />
+            <element signature="e#83439#83492#0" expanded="false" />
+            <element signature="e#83565#84011#0" expanded="false" />
+            <element signature="e#84277#84711#0" expanded="false" />
+            <element signature="e#84955#85897#0" expanded="false" />
+            <element signature="e#86128#86354#0" expanded="false" />
+            <element signature="e#86415#86640#0" expanded="false" />
+            <element signature="e#86872#86982#0" expanded="false" />
+            <element signature="e#87048#87156#0" expanded="false" />
+            <element signature="e#87221#87329#0" expanded="false" />
+            <element signature="e#87402#88308#0" expanded="false" />
+            <element signature="e#88544#89344#0" expanded="false" />
+            <element signature="e#89610#90196#0" expanded="false" />
+            <element signature="e#90462#91459#0" expanded="false" />
+            <element signature="e#96729#100786#0" expanded="false" />
+            <element signature="e#97091#97311#0" expanded="false" />
+            <element signature="e#97615#98947#0" expanded="false" />
+            <element signature="e#98953#99031#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/arcode.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="245" column="14" lean-forward="false" selection-start-line="245" selection-start-column="14" selection-end-line="245" selection-end-column="14" />
+          <folding>
+            <element signature="e#3821#3846#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PicShower.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5643">
+          <caret line="380" column="11" lean-forward="false" selection-start-line="218" selection-start-column="0" selection-end-line="380" selection-end-column="11" />
+          <folding>
+            <element signature="e#8788#9336#0" expanded="false" />
+            <element signature="e#9479#10054#0" expanded="false" />
+            <element signature="e#10193#10764#0" expanded="false" />
+            <element signature="e#10914#11007#0" expanded="false" />
+            <element signature="e#11116#11209#0" expanded="false" />
+            <element signature="e#11327#11423#0" expanded="false" />
+            <element signature="e#11550#11649#0" expanded="false" />
+            <element signature="e#11758#11851#0" expanded="false" />
+            <element signature="e#11987#12089#0" expanded="false" />
+            <element signature="e#12198#12291#0" expanded="false" />
+            <element signature="e#12399#12494#0" expanded="false" />
+            <element signature="e#13277#14053#0" expanded="false" />
+            <element signature="e#14126#14138#0" expanded="false" />
+            <element signature="e#14333#15009#0" expanded="false" />
+            <element signature="e#17963#18320#0" expanded="false" />
+            <element signature="e#18401#19469#0" expanded="false" />
+            <element signature="e#19600#25633#0" expanded="false" />
+            <element signature="e#25662#27531#0" expanded="false" />
+            <element signature="e#27560#27669#0" expanded="false" />
+            <element signature="e#27697#28432#0" expanded="false" />
+            <element signature="e#28478#30271#0" expanded="false" />
+            <element signature="e#30302#30612#0" expanded="false" />
+            <element signature="e#30652#30733#0" expanded="false" />
+            <element signature="e#31900#34141#0" expanded="false" />
+            <element signature="e#34289#35591#0" expanded="false" />
+            <element signature="e#35631#35713#0" expanded="false" />
+            <element signature="e#36214#36371#0" expanded="false" />
+            <element signature="e#36381#36428#0" expanded="false" />
+            <element signature="e#37220#37232#0" expanded="false" />
+            <element signature="e#37273#37285#0" expanded="false" />
+            <element signature="e#38171#38375#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/userdata/goodream/img/imageData.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="12" lean-forward="false" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/three.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shadow.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="565" column="44" lean-forward="false" selection-start-line="565" selection-start-column="44" selection-end-line="565" selection-end-column="44" />
+          <folding>
+            <element signature="e#6550#7182#0" expanded="false" />
+            <element signature="e#12101#12434#0" expanded="false" />
+            <element signature="e#12511#13504#0" expanded="false" />
+            <element signature="e#17037#18258#0" expanded="false" />
+            <element signature="e#18294#18368#0" expanded="false" />
+            <element signature="e#18402#18466#0" expanded="false" />
+            <element signature="e#25997#26701#0" expanded="false" />
+            <element signature="e#26770#26778#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

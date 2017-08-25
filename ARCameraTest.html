@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #cameraArea{position: relative;left: 0;top: 0; background: #4CAABE; z-index: 0; overflow: hidden;}
+        #videoArea{position: relative;left: 0;top: 0; background: #4CAABE; z-index: 0; overflow: visible;}
+        #camera{position: absolute; width: auto; height: auto; z-index: 0;}
+        .canvas{position: relative; width: auto; height: auto; z-index: 0;}
+        .button{position: absolute; padding-left: 25px; padding-right: 25px; padding-top: 15px; padding-bottom: 15px; z-index: 1;}
+    </style>
+</head>
+<body>
+
+<div id="cameraArea">
+    <video id="camera" autoplay="autoplay"></video>
+    <canvas id="ARCanvas"></canvas>
+
+    <input class="button" type="button" title="开启摄像头" value="开启摄像头" onclick="getMedia();"  />
+    <input class="button" type="button" value="更换摄像头" style="margin-left: 200px" onclick="changeCamera();" /><br />
+    <!--<video height="800px" autoplay="autoplay"></video><hr />-->
+</div>
+<hr />
+<div id="videoArea">
+    <input class="button" type="button" title="视频" value="视频" onclick="getVideo();" /><br />
+    <canvas class="canvas" id="videoCanvas"></canvas>
+</div>
+
+<script type="text/javascript">
+
+    var cameraArea = document.getElementById('cameraArea');
+    var videoArea = document.getElementById('videoArea');
+    var camera = document.getElementById('camera');
+    var ARCanvas = document.getElementById('ARCanvas');
+    var videoCanvas = document.getElementById('videoCanvas');
+    var videoContext = videoCanvas.getContext('2d');
+
+    cameraArea.style.width = window.innerWidth + 'px';cameraArea.style.height = window.innerHeight + 'px';
+    videoArea.style.width = window.innerWidth + 'px';videoArea.style.height = window.innerHeight + 'px';
+
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+        console.log("enumerateDevices() not supported.");}
+    var devicesVideo = [];
+    var i = 0;
+    navigator.mediaDevices.enumerateDevices()
+        .then(function(devices) {
+            devices.forEach(function(device) {
+//                console.log(device.kind + ": " + device.label +
+//                    " id = " + device.deviceId);
+                if(device.kind === "videoinput")
+                    devicesVideo.push(device.deviceId);
+            });
+        })
+        .catch(function(err) {
+            console.log(err.name + ": " + err.message);
+        });
+
+    var constraints = { video: { deviceId: devicesVideo[i] } };
+    function getMedia() {
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(mediaStream) {
+                camera.srcObject = mediaStream;
+                camera.onloadedmetadata = function(e) {
+                    camera.play();
+                    sizeCanvas();
+                };
+            })
+            .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+    }
+
+    var sizeCanvas = function () {
+        setTimeout(function () {
+            ARCanvas.width = camera.videoWidth;
+            ARCanvas.height = camera.videoHeight;
+            videoCanvas.width = camera.videoWidth;
+            videoCanvas.height = camera.videoHeight;
+            console.log(videoCanvas.width);
+        }, 100);
+    };
+
+    function getVideo() {
+        drawVideoAtCanvas(camera, videoContext);
+    }
+
+    function drawVideoAtCanvas(camera,context) {
+//        var window.inn
+
+        window.setInterval(function () {
+            context.drawImage(camera, 0, 0);
+        }, 1000/60);
+    }
+
+</script>
+
+</body>
+</html>

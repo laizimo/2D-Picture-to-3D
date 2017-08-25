@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pic Shower!</title>
+</head>
+<body style='margin : 0px'>
+    <script src="js/three.js"></script>
+    <script src="js/jquery-1.9.1/jquery-1.9.1.js"></script>
+    <script src="js/Detector.js"></script>
+    <script src="js/stats.min.js"></script>
+    <script src="js/ParallaxShader.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/dat.gui.min.js"></script>
+    <script src="js/ammo.js"></script>
+
+    <div id="Stats-output"></div>
+
+    <script>
+        //?
+        if (!Detector.webgl) {
+            var warning = Detector.getWebGLErrorMessage();
+            document.getElementById('container').appendChild(warning);
+        }
+
+
+        //Constant Setting
+        var SCREEN_WIDTH = window.innerWidth;
+        var SCREEN_HEIGHT = window.innerHeight;
+        var viewScaler = 1;
+        var armMovement = 0.5; // set by mouse movements
+
+        //Initialization(Painting)
+        var htmlContainer = null;
+        var scene = null;
+        var light = null;
+        var camera = null;
+        var cameraAnchor = null;
+        var cameraNewPoint = new THREE.Object3D();
+        var renderer = null;
+        var stats = null;
+        var controls = null;
+        var textureLoader = new THREE.TextureLoader();
+        var clock = new THREE.Clock();
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
+        var objects = null;
+        var cameraMask = null;
+        var simuScaler = 7;
+
+        var arm = null;
+
+        var lightHelper = null;
+
+        var GUI = null;
+
+
+
+        //Initialization(Physics)
+        var gravityConstant = -9.8;
+        var collisionConfiguration;
+        var dispatcher;
+        var broadphase;
+        var solver;
+        var physicsWorld;
+        var rigidBodies = [];
+        var margin = 0.000001;
+        var transformAux1 = new Ammo.btTransform();
+        var hinge = null;
+
+        //initialize positions and rotations
+        var clothPosition;
+        var clothRotation;
+        var armPosition;
+        var armRotation;
+
+        //Cloth properties
+        var clothMesh = null;
+        var clothGeometry = null;
+        var clothMass = 0.1;
+        var clothWidth = 10 * viewScaler;
+        var clothHeight = 8 * viewScaler;
+        var clothNumSegmentsX = clothWidth* simuScaler;
+        var clothNumSegmentsY = clothHeight* simuScaler;
+        var clothPos = new THREE.Vector3(0,-clothHeight/2,clothHeight/2);
+        var clothImage = "img/source.jpg";
+        var clothAlpha = "";
+        var clothBump = "";
+        var softBodyConfig = null;
+
+        var armPos = new THREE.Vector3(0,0,clothHeight/2);
+        var basePos = new THREE.Vector3(0,0,clothHeight);
+        var pivotA = new Ammo.btVector3( 0, 0, -clothHeight/2 );
+        var pivotB = new Ammo.btVector3( 0, 0, 0 );
+        var axisA = new Ammo.btVector3( 0, 0, 1 );
+        var axisB = new Ammo.btVector3( 0, 1, 0 );
+
+
+        var time = 0;
+        var isKinematics = true;
+
+//        window.addEventListener('')
+//        window.addEventListener('touchstart' , onTouchStart, false);
+//        window.addEventListener('touchmove' , onMouseMove, false);
+//        window.addEventListener('touchend' , onMouseUp, false);
+
+        //initStats();
+        init();
+        initPhysics();
+        initGround();
+        initCloth();
+        initArm();
+        GUI_init();
+        animate();
+//        initInput();
+//        renderer.render(scene,camera);
+//        render();
+
+        function init(){
+            //?
+            htmlContainer = document.createElement( 'div' );
+            document.body.appendChild(htmlContainer);
+
+            //initialize scene
+            scene = new THREE.Scene();    // 建立一个场景对象
+            scene.fog = new THREE.Fog(0x404040,10,500);      //设置场景雾效
+
+            var axisHelper = new THREE.AxisHelper(10);        //建立一个三维坐标系
+
+            //initialize camera
+            var FOV = 75;     //纵横比
+            camera = new THREE.PerspectiveCamera( FOV, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 5000 );
+            //建立一个透明投影的相机（视野角：fov 纵横比：aspect 相机离视体积最近的距离：near 相机离视体积最远的距离：far）
+//            scene.add(camera);
+//            camera.position = new THREE.Vector3(0,100,100);
+            camera.position.y = -24*viewScaler;    //投影的y轴位置是-24
+            camera.position.z = 0*viewScaler;      //投影的z轴位置是0
+            camera.rotateOnAxis(new THREE.Vector3(1,0,0), Math.PI/2);     //使投影在坐标轴上旋转
+
+            cameraNewPoint.position.addVectors(camera.position, new THREE.Vector3(0,12,0));
+            camera.add(cameraNewPoint);
+
+            cameraAnchor = new THREE.Object3D();
+            cameraAnchor.position = new THREE.Vector3(0,0,0);
+            cameraAnchor.add(camera);
+//            cameraAnchor.add(axisHelper);
+            scene.add(cameraAnchor);      //在场景中增加投影锚点
+
+            var lookPoint = new THREE.Vector3(0,0,0);     //建立一个可视点
+
+            //initialize cameraMask
+            var maskDistance = 1;     //距离设置为1
+            var distanceToLookPoint = camera.position.distanceTo(lookPoint);    //
+
+//            distanceTo(lookPoint);
+            var maskPosition = new THREE.Vector3();
+            var scalerMatrix = new THREE.Matrix4();   //建立一个4*4的矩阵
+            var factor = (distanceToLookPoint - maskDistance) / distanceToLookPoint;
+            scalerMatrix.set(factor,0,0,0,
+                0,factor,0,0,
+                0,0,factor,0,
+                0,0,0,1);   //初始化矩阵
+            maskPosition = lookPoint.add((camera.position.sub(lookPoint)).applyMatrix4(scalerMatrix));
+//            maskPosition = maskPosition.applyMatrix4(scalerMatrix);
+            cameraMask = new THREE.PlaneGeometry(5,5);   //生成平面几何
+            cameraMask.position = maskPosition;      //将刚刚初始化的一个可视矩阵赋给它
+
+            //initialize controller
+            //(Why it causes the camera can't be initialized .lookAt and .position)
+//            controls = new THREE.OrbitControls(camera);
+//            controls.target.y = 2;
+
+            //initialize render
+            renderer = new THREE.WebGLRenderer();   //WebGLRenderer does things including
+                                                    // creating canvas container and getting
+                                                    // the webgl context.
+            renderer.setClearColor(0x000000);       // RCC
+            renderer.antialias = true;
+            renderer.setSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.shadowMap.enabled = true;
+//            console.log(renderer.getPixelRatio());
+
+            renderer.domElement.style.position = "relative";
+            htmlContainer.appendChild( renderer.domElement );
+
+
+            //---------------------initialize light------------------------
+            var ambientLight = new THREE.AmbientLight(0xE0E0E0,1);   //建立一个周围的灯光
+//            scene.add(ambientLight);
+
+            light = new THREE.SpotLight(0xE0E0E0,3);    //SLC     //在初始化一个点的灯光
+//            light.position = new THREE.Vector3(-100,-100,200);
+            light.position.x = 0;     
+            light.position.y = -15;
+            light.position.z = 20;      //位置
+            light.penumbra = 1;   
+            light.angle = 0.01;
+            light.distance = 50;
+
+            light.castShadow = true;
+            light.lookAt(new THREE.Vector3(0,0,-3));
+
+            var d = 10;
+            light.shadow.camera.left = -d;
+            light.shadow.camera.right = d;
+            light.shadow.camera.top = d;
+            light.shadow.camera.bottom = -d;
+
+            light.shadow.camera.near = 2;
+            light.shadow.camera.far = 50;
+
+            light.shadow.mapSize.x = 1024;
+            light.shadow.mapSize.y = 1024;
+
+            light.shadow.bias = -0.003;
+
+//            light.add(axisHelper);
+
+            cameraAnchor.add(light);
+//
+//            var spotLight = new THREE.SpotLight(0xE0E0E0,1,);
+//            lightHelper = new THREE.SpotLightHelper(spotLight);
+
+//            var DLight = new THREE.DirectionalLight(0xffffff,5);
+//            DLight.position = new THREE.Vector3(1,1,1);
+//            cameraAnchor.add(DLight);
+
+            //initialize
+            onWindowResize();
+        }
+//------------------------------------GUI---------------------------------------------------------
+
+        function ClothProperties() {     //初始化布属性
+            this.imageURL = clothImage;     //图片
+            this.alphaMapURL = clothAlpha;     //
+            this.bumpMapURL = clothBump;
+            this.metalness = clothMesh.material.metalness = 0;
+            this.roughness = clothMesh.material.roughness = 1;
+//            this.reflectionRatio = clothMesh.material.reflectionRatio;
+            this.reflectivity = clothMesh.material.reflectivity = 0.1;
+            this.refractionRatio = clothMesh.material.refractionRatio = 0;
+            this.clearCoat = clothMesh.material.clearCoat = 0.28;
+            this.clearCoatRoughness = clothMesh.material.clearCoatRoughness = 1;
+            this.wireframe = clothMesh.material.wireframe;
+            this.transparent = clothMesh.material.transparent = true;
+            this.opacity = clothMesh.material.opacity = 0.85;
+//            console.log(clothMesh.material.map.image);
+        }
+
+        var GUI_loadImage = null;
+        var param = clothMesh.material;
+
+        function getUrlParam(name) {     //获取url中的参数
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对�?
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数�?
+        }
+
+        var clothProperties = new ClothProperties();
+        var GUI_loadImage = null;
+        var param = clothMesh.material;
+
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对�?
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数�?
+        }
+
+
+        function gui(image) {     //建立一个GUI的控制面板
+            GUI = new dat.GUI();
+            GUI.open();
+
+            var imageGroup;
+            imageGroup = image;
+//        GUI.remember(clothProperties);
+//            addGUI
+//        var folder1 = GUI.addFolder("ClothMaterials");
+            var imgsURL=[];
+            var base_url='https://www.lhbzimo.cn'
+            imageGroup.forEach(function (value, index, arr) {
+                console.log(value['image']);
+                imgsURL.push(base_url+value['image']);
+            });
+
+
+            GUI_loadImage = GUI.add(clothProperties,'imageURL', imgsURL);
+            GUI_loadImage.onFinishChange(function(clothImage){
+                console.log("Trying Load!");
+                var clothTexture = textureLoader.load(clothImage,
+                    function (clothTexture) {
+                        clothMesh.material.map = clothTexture;
+                        console.log("Load successful!");
+                    },
+                    function (){
+                        console.log("Loading...");
+                    },
+                    function () {
+                        console.log("Load error! File may not exist.");
+                    });
+            });
+            GUI_physics = GUI.add( this, 'isKinematics', isKinematics);
+
+        }
+
+        function GUI_init() {
+
+            var image;
+            var username = getUrlParam('username');
+            $.ajax({
+                url:'/owap/public/designerImage/'+username,
+                type: 'GET',
+                dataType: 'json',
+                data:{},
+                success:function (res) {
+                    if(res.state == 1){
+                        image = res.data;
+                        gui(image)
+                    }
+                },
+                error: function () {
+                    console.log('请求超时');
+                }
+            })
+        }
+
+
+//------------------------------------------------------------------------------------------------
+
+        function initPhysics() {
+            /* 启动支持柔体的物理引擎*/
+            collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
+            dispatcher = new Ammo.btCollisionDispatcher( collisionConfiguration);
+            broadphase = new Ammo.btDbvtBroadphase();
+            solver = new Ammo.btSequentialImpulseConstraintSolver();
+            softBodySolver = new Ammo.btDefaultSoftBodySolver();
+            physicsWorld = new Ammo.btSoftRigidDynamicsWorld(dispatcher,broadphase,solver,collisionConfiguration,softBodySolver);
+            physicsWorld.setGravity(new Ammo.btVector3(0,0,gravityConstant));
+            physicsWorld.getWorldInfo().set_m_gravity(new Ammo.btVector3(0,0,gravityConstant));
+        }
+
+        function initGround() {    //初始化地面
+            var pos = new THREE.Vector3(0,0,0);
+            var quat = new THREE.Quaternion(0,0,0,1);
+
+            //initialize ground
+            var htmlCanvas = document.createElement('canvas');
+            var canvasContext = htmlCanvas.getContext('2d');
+            htmlCanvas.width = htmlCanvas.height = 128;
+            //setting texture in canvas
+            canvasContext.fillStyle = "#444";
+            canvasContext.fillRect( 0, 0, 128, 128 );
+            canvasContext.fillStyle = "#fff";
+            canvasContext.fillRect( 0, 0, 64, 64);
+            canvasContext.fillRect( 64, 64, 64, 64 );
+            //setting canvasTexture
+            var groundTexture = new THREE.CanvasTexture(htmlCanvas);
+            groundTexture.repeat.set(100,100);
+            groundTexture.wrapS = THREE.RepeatWrapping;
+            groundTexture.wrapT = THREE.RepeatWrapping;
+            //setting canvasTexture as ground material
+            var groundMaterial = new THREE.MeshPhongMaterial({map:groundTexture});
+//            groundMaterial.side = THREE.DoubleSide;
+            groundMaterial.needsUpdate = true;
+//            var groundMesh = createParalellepiped(40,40,1,0,pos,quat,groundMaterial);
+
+            var groundGeometry = new THREE.PlaneBufferGeometry(200,200);
+
+            var groundMesh = new THREE.Mesh(groundGeometry,groundMaterial);
+            groundMesh.translateOnAxis(new THREE.Vector3(0,0,1),-10);
+            groundMesh.receiveShadow = true;
+//            groundMesh.rotation.x = - Math.PI/4;
+            scene.add(groundMesh);
+//            console.log(groundMesh);
+
+            //init ground physics
+//            var groundShape = new Ammo.btHeightfieldTerrainShape(2000,2000,1,1);
+//            var groundShape =new Ammo.btStaticPlaneShape(2000,2000);
+
+
+            //TEST BOX
+//            var groundShape = new Ammo.btBoxShape( new Ammo.btVector3(30,30,30));
+//            groundShape.setMargin(0.05);
+//            var groundTransform = new Ammo.btTransform();
+//            groundTransform.setIdentity();
+//            groundTransform.setOrigin( new Ammo.btVector3( 0, 0, 0 ) );
+//
+//            var groundMass = 0;
+//            var groundLocalInertia = new Ammo.btVector3( 0, 0, 0 );
+//            var groundMotionState = new Ammo.btDefaultMotionState( groundTransform );
+//            var groundBody = new Ammo.btRigidBody( new Ammo.btRigidBodyConstructionInfo( groundMass, groundMotionState, groundShape, groundLocalInertia ) );
+//            physicsWorld.addRigidBody(groundBody);
+//            groundMesh.userData.physicsBody = groundShape;
+//            groundShape.setMargin(0.05);
+
+            //
+            //
+//            createRigidBody(groundMesh,groundShape,0,new THREE.Vector3(0,0,0), new THREE.Quaternion(0,0,0,1));
+//            physicsWorld.
+//            console.log(rigidBodies);
+
+        }
+
+        function createParalellepiped( sx, sy, sz, mass, pos, quat, material ) {   //创建平行六面体
+
+            var threeObject = new THREE.Mesh( new THREE.BoxGeometry( sx, sy, sz, 1, 1, 1 ), material );
+            var shape = new Ammo.btBoxShape( new Ammo.btVector3( sx * 0.5, sy * 0.5, sz * 0.5 ) );
+            shape.setMargin( margin );
+
+            createRigidBody( threeObject, shape, mass, pos, quat );
+
+            return threeObject;
+
+        }
+
+        function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {  //创建刚体
+
+            threeObject.position.copy( pos );
+            threeObject.quaternion.copy( quat );
+
+            var transform = new Ammo.btTransform();
+            transform.setIdentity();
+            transform.setOrigin( new Ammo.btVector3( pos.x, pos.y, pos.z ) );
+            transform.setRotation( new Ammo.btQuaternion( quat.x, quat.y, quat.z, quat.w ) );
+            var motionState = new Ammo.btDefaultMotionState( transform );
+
+            var localInertia = new Ammo.btVector3( 0, 0, 0 );
+            physicsShape.calculateLocalInertia( mass, localInertia );
+
+
+            var rbInfo = new Ammo.btRigidBodyConstructionInfo( mass, motionState, physicsShape, localInertia );
+            var body = new Ammo.btRigidBody( rbInfo );
+
+            threeObject.userData.physicsBody = body;
+
+            scene.add( threeObject );
+
+            if ( mass > 0 ) {
+                rigidBodies.push( threeObject );
+
+                // Disable deactivation
+                body.setActivationState( 4 );
+            }
+
+            physicsWorld.addRigidBody( body );
+
+        }
+
+//-----------------------------------CLOTH---------------------------------------------------------
+
+        function initCloth(){    //初始化布料
+
+            //cloth graphic
+
+            //cloth geometry definition
+            clothGeometry = new THREE.PlaneBufferGeometry( clothWidth, clothHeight, clothNumSegmentsX, clothNumSegmentsY);
+            
+//            clothGeometry.rotation = new THREE.Vector3(Math.PI/2,0,0);
+            //cloth position setting
+            clothGeometry.translate(clothPos.x, clothPos.y, clothPos.z);
+            clothGeometry.name = "cloth";
+//            console.log(clothPos);
+            //cloth texture and material definition
+            var clothTexture = textureLoader.load(clothImage, function (clothTexture) {
+                clothTexture.wrapT = THREE.ClampToEdgeWrapping;
+                clothTexture.wrapS = THREE.ClampToEdgeWrapping;
+                clothTexture.minFilter = clothTexture.magFilter = THREE.LinearFilter;
+//                clothTexture.repeat.set(1,1);
+            });
+
+
+//            clothTexture.premultiplyAlpha
+
+            var clothMaterial = new THREE.MeshPhysicalMaterial({map: clothTexture,
+                side:THREE.DoubleSide,
+//                color:0xEEEEEE,
+                clearCoat:0.01,
+                clearCoatRoughness:0.01
+            });
+            clothMaterial.needsUpdate = true;
+//            clothMaterial.wireframe = true;
+            clothMesh = new THREE.Mesh(clothGeometry,clothMaterial);
+            clothMesh.castShadow = true;
+            clothMesh.receiveShadow = true;
+
+//            clothMesh.geometry.rotateX(Math.PI/2);
+//            clothMesh.translateOnAxis(0,-clothHeight/2,0);
+
+            scene.add(clothMesh);
+//            console.log(clothPos);
+            // Cloth physic object
+//            console.log(clothPos.x + "," + clothPos.y);
+            var softBodyHelpers = new Ammo.btSoftBodyHelpers();
+            var clothCorner00 = new Ammo.btVector3( clothPos.x - clothWidth/2, clothPos.y + clothHeight/2, clothPos.z);
+            var clothCorner01 = new Ammo.btVector3( clothPos.x + clothWidth/2, clothPos.y + clothHeight/2, clothPos.z);
+            var clothCorner10 = new Ammo.btVector3( clothPos.x - clothWidth/2, clothPos.y - clothHeight/2, clothPos.z);
+            var clothCorner11 = new Ammo.btVector3( clothPos.x + clothWidth/2, clothPos.y - clothHeight/2, clothPos.z);
+
+            var clothSoftBody = new softBodyHelpers.CreatePatch(physicsWorld.getWorldInfo(), clothCorner00, clothCorner01, clothCorner10, clothCorner11, clothNumSegmentsX +1 , clothNumSegmentsY +1 , 0, true);
+            softBodyConfig = clothSoftBody.get_m_cfg();
+            //????????
+            softBodyConfig.set_viterations(10);
+            softBodyConfig.set_piterations(10);
+
+
+///////////////////////////////IMPORTANT/////////////////////////////////////////
+//            sbConfig.set_viterations( 40 );
+//            sbConfig.set_piterations( 40 );
+
+            // Damping coefficient [0,1] 阻尼系数
+//            softBodyConfig.set_kDP( 0.0001 );
+            // Drag coefficient [0,+inf] 阻力系数
+            softBodyConfig.set_kDG ( 0.02 );
+            // Lift coefficient [0,+inf] 升力系数
+            softBodyConfig.set_kLF( 0.0001 );
+            // (不可用） Pressure coefficient [-inf,+inf] 压力系数
+//            softBodyConfig.set_kPR( -1 );
+            // Volume conversation coefficient [0,+inf] 体积守恒系数
+            softBodyConfig.set_kVC( 0.0001 );
+            // Dynamic friction coefficient [0,1] 动态摩擦系�?
+//            softBodyConfig.set_kDF( 0.01 );
+            // Pose matching coefficient [0,1] 姿态匹配系�?
+//            softBodyConfig.set_kMT( 0.5 );
+            // Rigid contacts hardness [0,1] 刚接触硬�?
+//            softBodyConfig.set_kCHR( 0.01 );
+            // Kinetic contacts hardness [0,1] 动触点硬�?
+//            softBodyConfig.set_kKHR( 1 );
+            // Soft contacts hardness [0,1] 软接触硬�?
+//            softBodyConfig.set_kSHR( 1 );
+            // Anchors hardness [0,1] 锚具的硬�?
+//            softBodyConfig.set_kAHR( 1 );
+            // kSRHR_CL; Soft vs rigid hardness [0,1] (cluster only)
+//            softBodyConfig.set_kSRHR_CL( 0 );
+//            // kSKHR_CL; Soft vs kinetic hardness [0,1] (cluster only)
+//            softBodyConfig.set_kSKHR_CL( 0 );
+//            // kSSHR_CL; Soft vs soft hardness [0,1] (cluster only)
+//            softBodyConfig.set_kSSHR_CL( 0 );
+//            // kSK_SPLT_CL; Soft vs rigid impulse split [0,1] (cluster only)
+//            softBodyConfig.set_kSK_SPLT_CL( 0 );
+//            // kSS_SPLT_CL; Soft vs rigid impulse split [0,1] (cluster only) 姿势最大体积比
+//            softBodyConfig.set_kSS_SPLT_CL ( 0 );
+//            //Maximum volume ratio for pose
+            softBodyConfig.set_maxvolume ( 0 );
+            // timescale
+            softBodyConfig.set_timescale( 1 );
+//            // Velocities solver iterations
+//            softBodyConfig.set_viterations( 0 );
+//            // Positions solver iterations
+//            softBodyConfig.set_piterations( 0 );
+//            // Drift solver iterations
+//            softBodyConfig.set_diterations( 0 );
+//            // Cluster solver iterations
+//            softBodyConfig.set_citerations( 0 );
+            // Soft-soft and soft-rigid collisions 碰撞标记
+//            softBodyConfig.set_collisions( 0x11 );
+
+
+
+
+            // Time scale
+//            softBodyConfig.timescale = ?;
+
+//            clothSoftBody.get_m_materials().at( 0 ).set_m_kLST( 0.5 );
+//            clothSoftBody.get_m_materials().at( 0 ).set_m_kAST( 0.5 );
+///////////////////////////////IMPORTANT/////////////////////////////////////////
+
+
+//            clothMesh.geometry.rotateX(Math.PI/3);
+//            clothSoftBody.appendMaterial(1,1,1,1);
+//            console.log(clothSoftBody.material);
+            clothSoftBody.setTotalMass(clothMass, false);
+            Ammo.castObject( clothSoftBody, Ammo.btCollisionObject ).getCollisionShape().setMargin( margin );
+            physicsWorld.addSoftBody( clothSoftBody , 1, -1);   //add softbody into the physics world
+            clothMesh.userData.physicsBody = clothSoftBody;
+            // Disable deactivation
+            clothSoftBody.setActivationState( 4 );
+        }
+
+        function initArm() {    //创建支架
+
+            var baseMaterial = new THREE.MeshPhongMaterial({color:0x222222});
+
+            var armMass = 1;
+            var armLength = clothWidth;
+            var pos = new THREE.Vector3();
+            var quat = new THREE.Quaternion();
+            pos = armPos;
+            quat.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
+            arm = createParalellepiped( 0.5, 0.5, armLength, armMass, pos, quat, baseMaterial);
+            arm.castShadow = false;
+            arm.receiveShadow = true;
+//            scene.add(arm);
+
+            var influence = 1;
+            clothMesh.userData.physicsBody.appendAnchor( 0, arm.userData.physicsBody, false, influence );
+            clothMesh.userData.physicsBody.appendAnchor( clothNumSegmentsX/3, arm.userData.physicsBody, false, influence );
+            clothMesh.userData.physicsBody.appendAnchor( clothNumSegmentsX/3*2, arm.userData.physicsBody, false, influence );
+            clothMesh.userData.physicsBody.appendAnchor( clothNumSegmentsX, arm.userData.physicsBody, false, influence );
+
+            var baseMass = 0;
+            pos = basePos;
+            quat.set( 0, 0, 0, 1 );
+            var base = createParalellepiped( 0.2, 0.2, clothHeight, baseMass, pos, quat, baseMaterial );
+            base.castShadow = false;
+            base.receiveShadow = true;
+//            scene.add(base);
+
+            hinge = new Ammo.btHingeConstraint( base.userData.physicsBody, arm.userData.physicsBody, pivotA, pivotB, axisA, axisB, true );
+            physicsWorld.addConstraint( hinge, true );
+//            console.log(hinge);
+        }
+
+        function animate() {
+
+            requestAnimationFrame( animate );
+
+            render();
+            //stats.update();
+        }
+
+        function render() {
+
+            var deltaTime = clock.getDelta();
+            if(isKinematics) {
+                updatePhysics(deltaTime);
+            }
+//            controls.update( deltaTime )
+//            lightHelper.update();
+            if(time>1){
+                V3Lerp(camera.position,cameraNewPoint.position,0.025);
+                var targetAngle = 0.35;
+//                if(targetAngle - light.angle < 0.01 )
+                light.angle = floatLerp(light.angle, targetAngle, 0.1);
+//                console.log(light.angle);
+            }
+
+            renderer.render( scene, camera );
+            time += deltaTime;
+            window.addEventListener( 'resize', onWindowResize, false );
+        }
+
+        function updatePhysics( deltaTime ) {
+            // Hinge control
+            if(time > 2) {
+//                hinge.enableAngularMotor(true, 0.5, 50);
+            }
+//            console.log(time);
+//            console.log(deltaTime);
+            // Step world
+            //本阶段对物理
+            physicsWorld.stepSimulation( deltaTime*5,5);
+
+            // Update cloth
+            var softBody = clothMesh.userData.physicsBody;
+            var clothPositions = clothMesh.geometry.attributes.position.array;
+            var numVerts = clothPositions.length / 3;
+            var nodes = softBody.get_m_nodes();
+            var indexFloat = 0;
+            for ( var i = 0; i < numVerts; i ++ ) {
+                var node = nodes.at( i );
+                var nodePos = node.get_m_x();
+                clothPositions[ indexFloat++ ] = nodePos.x();
+                clothPositions[ indexFloat++ ] = nodePos.y();
+                clothPositions[ indexFloat++ ] = nodePos.z();
+            }
+            clothMesh.geometry.computeVertexNormals();
+            clothMesh.geometry.attributes.position.needsUpdate = true;
+            clothMesh.geometry.attributes.normal.needsUpdate = true;
+
+            // Update rigid bodies
+            for ( var i = 0, il = rigidBodies.length; i < il; i++ ) {
+                var objThree = rigidBodies[ i ];
+                var objPhys = objThree.userData.physicsBody;
+                var ms = objPhys.getMotionState();
+                if ( ms ) {
+
+                    ms.getWorldTransform( transformAux1 );
+                    var p = transformAux1.getOrigin();
+                    var q = transformAux1.getRotation();
+                    objThree.position.set( p.x(), p.y(), p.z() );
+                    objThree.quaternion.set( q.x(), q.y(), q.z(), q.w() );
+
+                }
+            }
+        }
+
+        function initStats() {
+            stats = new Stats();
+            stats.setMode(0);
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left ='0px';
+            stats.domElement.style.top ='0px';
+            $('#Stats-output').append(stats.domElement);
+            return stats;
+        }
+
+        function V3Three2Ammo(threeV3){
+            return new Ammo.btVector3(threeV3.x,threeV3.y,threeV3.z);
+        }
+
+        function V3Lerp( originPosition, targetPosition, factor) {
+//            var lerpPosition = origin.position.lerp(target, factor);
+            originPosition.copy(originPosition.lerp(targetPosition, factor));
+        }
+
+        function floatLerp( originFloat, targetFloat, factor){
+            return (originFloat + (targetFloat - originFloat)* factor);
+        }
+
+
+
+        //--------------------EVENT HANDLE--------------------------------------------------------------------------
+        //Initialize event
+        // TODO: change window to canvas control
+        window.addEventListener('mousemove' , onMouseMove, false);
+        window.addEventListener('mousedown' , onMouseDown, false);
+        window.addEventListener('mouseup' , onMouseUp, false);
+        window.addEventListener('mousewheel' , onMouseWheel, false);
+        window.addEventListener('keydown', onKeyDown);
+        window.addEventListener('keyup', onKeyDown);
+        window.addEventListener('keypress', onKeyDown);
+        window.addEventListener('deviceorientation',onRotateDevice,true);
+
+
+        var toggle = 0;
+        var touchedNode = null;
+
+        function intersectCloth() {
+            raycaster.setFromCamera( mouse , camera);
+//            var intersects = raycaster.intersectObjects(clothMesh);
+            var intersects = raycaster.intersectObject(clothMesh);
+//            console.log(intersects);
+//            for( var i = 0; i<intersects.length; i++){
+//
+//            }
+            if(intersects[0] != null){
+                intersects[0].object.material.color.set(0xff0000);
+//                console.log(intersects[0].object);
+//                console.log(intersects[0].point);
+                var pointInWorld = intersects[0].point;
+                var nodes = intersects[0].object.userData.physicsBody.get_m_nodes();
+//                console.log(nodes.size());
+//                console.log(nodes.at(0).get_m_x().dot(new Ammo.btVector3(pointInWorld.x,pointInWorld.y,pointInWorld.z)));
+
+//                console.log(V3.x);
+//                console.log(V3.y);
+//                console.log(V3.z);
+//                V3.setX(10);
+//                Math.dis
+//                console.log(nodeV3);
+
+                var scalar = physicsWorld.rayTest(V3Three2Ammo(camera.position),V3Three2Ammo(new THREE.Vector3(mouse.x,mouse.y,camera.position.z-100)));
+//                console.log(scalar);
+                for( var i = 0; i<nodes.size(); i++){
+                    var nodeV3 = nodes.at(i).get_m_x();
+//                    console.log(nodeV3);
+                    if(nodeV3.dot(new Ammo.btVector3(pointInWorld.x,pointInWorld.y,pointInWorld.z))<0.01) {
+//                        nodeV3.setZ(nodeV3.op_add(new Ammo.btVector3(0,0,1)));
+//                        console.log(nodeV3.z);
+                    }
+                }
+
+
+//                for(var i = 0; i< nodes.length;i++){
+//                    console.log(i);
+//                }
+
+//                intersects[0].addForce();
+            }
+//            for ( var i = 0; i < intersects.length; i++ ) {
+//                if(intersects[i].object.geometry.name == "cloth") {
+//                    intersects[i].object.material.color.set(0xff0000);
+//                    console.log(intersects[i].ray.intersectsPlane(intersects[i].object.geometry));
+//                    console.log(intersects[i].ray);
+//                }
+//            }
+        }
+
+        var lastX1 = null;
+        var lastY = null;
+        var lastX2 = null;
+        var isDown = null;
+
+        function onMouseMove( event ) {
+
+            mouse.x = ( event.clientX / window.innerWidth )* 2 - 1;
+            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+            if(isDown){
+//                arm.rotateOnAxis(new THREE.Vector3(1,0,0),lastX - mouse.x);
+                armMovement = (mouse.x - lastX1 ) * 20;
+                if(armMovement>1)
+                    armMovement = 1;
+                else if(armMovement <-1)
+                    armMovement = -1;
+                hinge.enableAngularMotor(true, armMovement*0.5, 50);
+            }
+
+            if(!isKinematics && isDown){
+                var cameraMovement = (mouse.x - lastX2) * 0.7;
+                cameraAnchor.rotateOnAxis(new THREE.Vector3(0,0,-1),cameraMovement);
+
+            }
+            lastX1 = mouse.x;
+            lastX2 = mouse.x;
+
+            if(toggle > 0.02){
+                toggle = 0;
+            }
+            y = mouse.y;
+//            event.touch
+        }
+
+        function onMouseDown( event ) {
+
+            isDown = true;
+//            armMovement = - armMovement;
+        }
+
+        function onMouseUp( event ) {
+            isDown = false;
+//            console.log("up");
+        }
+
+
+        function onMouseWheel( event ) {
+
+            var wheel = event.wheelDelta *0.01;
+            cameraNewPoint.translateOnAxis(new THREE.Vector3(0,1,0), wheel);
+            if(cameraNewPoint.position.y > -6)
+                cameraNewPoint.position.y = -6;
+            if(cameraNewPoint.position.y < -24)
+                cameraNewPoint.position.y = -24;
+            console.log(cameraNewPoint.position.y);
+        }
+
+        function onKeyDown( event ) {
+            if( event && event.keyCode === 37 ){
+                light.rotateZ(-0.1);
+//                console.log(light.rotation);
+            }
+
+        }
+
+        //        document.onkeyress = function(event){
+        //            var e = event || window.event || arguments.callee.caller.arguments[0];
+        //            if(e && e.keyCode===37){ // left
+        //                light.rotateOnAxis(new THREE.Vector3(0,0,1),-0.05);
+        //                console.log(light.rotation);
+        //            }
+        //            if(e && e.keyCode===38){ // up
+        //                //要做的事�?
+        //            }
+        //            if(e && e.keyCode===39){ // right
+        //                light.rotateOnAxis(new THREE.Vector3(0,0,1),0.05);
+        //                console.log(light.rotation);
+        //            }
+        //            if(e && e.keyCode===40){ // down
+        //                //要做的事�?
+        //            }
+        //        };
+
+        function touchMove(){
+
+        }
+
+        function onTouchStart( event ) {
+
+        }
+
+        var lastAcc = undefined;
+
+        function onRotateDevice( event ) {
+            armMovement = event.gamma *0.03;
+//            console.log(armMovement);
+            if(armMovement>1)
+                armMovement = 1;
+            else if(armMovement <-1)
+                armMovement = -1;
+            hinge.enableAngularMotor(true, armMovement, 50);
+
+//            if (lastAcc != undefined){
+//                var delA = Math.abs(event.alpha - lastAcc.alpha);    // alpha轴偏转角
+//                var delB = Math.abs(event.beta - lastAcc.beta);    // beta轴偏转角
+//                var delG = Math.abs(event.gamma - lastAcc.gamma);    // gamma轴偏转角
+//
+//            }
+////            console.log(event.alpha);
+////            console.log(event.beta);
+////            console.log(event.gamma);
+//            lastAcc = event;    // 存储上一次的event
+        }
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize( window.innerWidth, window.innerHeight );
+
+        }
+        //--------------------------------------------------------------------------------
+
+
+
+    </script>
+
+
+</body>
+</html>

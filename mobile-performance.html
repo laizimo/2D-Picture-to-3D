@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<!-- three.js library -->
+<script src='js/three.js'></script>
+<script src="js/stats.min.js"></script>
+<!-- ar.js -->
+<script src="js/ar/ar.js"></script>
+<script>THREEx.ArToolkitContext.baseURL = '../'</script>
+<!--ammo.js-->
+<script src="js/ammo.js"></script>
+
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: absolute; top: 10px; width:100%; text-align: center; z-index: 1;'>
+	<a href="https://github.com/jeromeetienne/AR.js/" target="_blank">AR.js</a> - three.js mobile performance
+	<br/>
+	Contact me any time at <a href='https://twitter.com/jerome_etienne' target='_blank'>@jerome_etienne</a>
+</div><script>
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Init
+	//////////////////////////////////////////////////////////////////////////////////
+
+	// init renderer
+	var renderer	= new THREE.WebGLRenderer({
+		// antialias	: true,
+		alpha: true
+	});
+	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+	// renderer.setPixelRatio( 1/2 );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.domElement.style.position = 'absolute'
+	renderer.domElement.style.top = '0px'
+	renderer.domElement.style.left = '0px'
+	document.body.appendChild( renderer.domElement );
+
+	// array of functions for the rendering loop
+	var onRenderFcts= [];
+
+	// init scene and camera
+	var scene	= new THREE.Scene();
+
+	var ambient = new THREE.AmbientLight( 0x666666 );
+	scene.add( ambient );
+
+	var directionalLight = new THREE.DirectionalLight( 0x887766 );
+	directionalLight.position.set( -1, 1, 1 ).normalize();
+	scene.add( directionalLight );
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Initialize a basic camera
+	//////////////////////////////////////////////////////////////////////////////////
+
+	// Create a camera
+	var camera = new THREE.Camera();
+	scene.add(camera);
+
+	////////////////////////////////////////////////////////////////////////////////
+	//          handle arToolkitSource
+	////////////////////////////////////////////////////////////////////////////////
+
+	var arToolkitSource = new THREEx.ArToolkitSource({
+		// to read from the webcam 
+		sourceType : 'webcam',
+
+        canvasWidth: window.innerWidth,
+        canvasHeight: window.innerHeight,
+        imageSmoothingEnabled: true
+
+        // to read from an image
+		// sourceType : 'image',
+		// sourceUrl : '../../data/images/img.jpg',		
+
+		// to read from a video
+		// sourceType : 'video',
+		// sourceUrl : '../../data/videos/headtracking.mp4',		
+	});
+
+	arToolkitSource.init(function onReady(){
+		// handle resize of renderer
+		arToolkitSource.onResize(renderer.domElement)		
+	});
+	
+	// handle resize
+	window.addEventListener('resize', function(){
+		// handle arToolkitSource resize
+		arToolkitSource.onResize(renderer.domElement)		
+	});
+	////////////////////////////////////////////////////////////////////////////////
+	//          initialize arToolkitContext
+	////////////////////////////////////////////////////////////////////////////////
+	
+
+	// create atToolkitContext
+	var arToolkitContext = new THREEx.ArToolkitContext({
+		cameraParametersUrl: 'data/data/camera_para.dat',
+		detectionMode: 'mono'
+	});
+	// initialize it
+	arToolkitContext.init(function onCompleted(){
+		// copy projection matrix to camera
+		camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+	});
+
+	// update artoolkit on every frame
+	onRenderFcts.push(function(){
+		if( arToolkitSource.ready === false )	return
+
+		arToolkitContext.update( arToolkitSource.domElement )
+	});
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//          Create a ArMarkerControls
+	////////////////////////////////////////////////////////////////////////////////
+	
+	var markerRoot = new THREE.Group
+	scene.add(markerRoot);
+	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+		type : 'pattern',
+		patternUrl : 'data/data/patt.hiro'
+		// patternUrl : '../../data/data/patt.kanji'
+	});
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		add an object in the scene
+	//////////////////////////////////////////////////////////////////////////////////
+
+    //Initialization(Painting)
+    var controls = null;
+    var textureLoader = new THREE.TextureLoader();
+    var clock = new THREE.Clock();
+
+	//About physics
+    var arm = null;
+    var gravityConstant = -9.8;
+    var margin = 0.000001;
+    var physicsWorld;
+    var rigidBodies = [];
+    var hinge = null;
+    //Cloth properties
+    var clothMesh = null;
+    var clothGeometry = null;
+    var clothMass = 0.1;
+    var clothWidth = 5;
+    var clothHeight = 4;
+    var clothNumSegmentsX = clothWidth*3 ;
+    var clothNumSegmentsY = clothHeight*3;
+    var clothPos = new THREE.Vector3(0,-clothHeight/2 - 0.3,0);
+    var clothImage = "img/source.jpg";
+    var clothAlpha = "";
+    var clothBump = "";
+    var softBodyConfig = null;
+
+    var testGroup = new THREE.Group();
+
+	initPhysics();
+	initCloth();
+	initArm();
+
+    function createParalellepiped( sx, sy, sz, mass, pos, quat, material ) {
+
+        var threeObject = new THREE.Mesh( new THREE.BoxGeometry( sx, sy, sz, 1, 1, 1 ), material );
+        var shape = new Ammo.btBoxShape( new Ammo.btVector3( sx * 0.5, sy * 0.5, sz * 0.5 ) );
+        shape.setMargin( margin );
+
+        createRigidBody( threeObject, shape, mass, pos, quat );
+
+        return threeObject;
+
+    }
+
+    function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
+
+        threeObject.position.copy( pos );
+        threeObject.quaternion.copy( quat );
+
+        var transform = new Ammo.btTransform();
+        transform.setIdentity();
+        transform.setOrigin( new Ammo.btVector3( pos.x, pos.y, pos.z ) );
+        transform.setRotation( new Ammo.btQuaternion( quat.x, quat.y, quat.z, quat.w ) );
+        var motionState = new Ammo.btDefaultMotionState( transform );
+
+        var localInertia = new Ammo.btVector3( 0, 0, 0 );
+        physicsShape.calculateLocalInertia( mass, localInertia );
+
+
+        var rbInfo = new Ammo.btRigidBodyConstructionInfo( mass, motionState, physicsShape, localInertia );
+        var body = new Ammo.btRigidBody( rbInfo );
+
+        threeObject.userData.physicsBody = body;
+
+        testGroup.add(threeObject);
+
+        if ( mass > 0 ) {
+            rigidBodies.push( threeObject );
+
+            // Disable deactivation
+            body.setActivationState( 4 );
+        }
+
+        physicsWorld.addRigidBody( body );
+
+    }
+
+    function initPhysics() {
+        collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
+        dispatcher = new Ammo.btCollisionDispatcher( collisionConfiguration);
+        broadphase = new Ammo.btDbvtBroadphase();
+        solver = new Ammo.btSequentialImpulseConstraintSolver();
+        softBodySolver = new Ammo.btDefaultSoftBodySolver();
+        physicsWorld = new Ammo.btSoftRigidDynamicsWorld(dispatcher,broadphase,solver,collisionConfiguration,softBodySolver);
+        physicsWorld.setGravity(new Ammo.btVector3(0,0,gravityConstant));
+        physicsWorld.getWorldInfo().set_m_gravity(new Ammo.btVector3(0,0,gravityConstant));
+    }
+
+    //-----------------------------------CLOTH---------------------------------------------------------
+
+    function initCloth(){
+
+        //cloth graphic
+
+        //cloth geometry definition
+        clothGeometry = new THREE.PlaneBufferGeometry( clothWidth, clothHeight, clothNumSegmentsX, clothNumSegmentsY);
+//            clothGeometry.rotation = new THREE.Vector3(Math.PI/2,0,0);
+        //cloth position setting
+        clothGeometry.translate(clothPos.x, clothPos.y, clothPos.z);
+        clothGeometry.name = "cloth";
+//            console.log(clothPos);
+        //cloth texture and material definition
+        var clothTexture = textureLoader.load(clothImage, function (clothTexture) {
+            clothTexture.wrapT = THREE.ClampToEdgeWrapping;
+            clothTexture.wrapS = THREE.ClampToEdgeWrapping;
+            clothTexture.minFilter = clothTexture.magFilter = THREE.LinearFilter;
+//                clothTexture.repeat.set(1,1);
+        });
+
+
+//            clothTexture.premultiplyAlpha
+
+        var clothMaterial = new THREE.MeshPhysicalMaterial({map: clothTexture,
+            side:THREE.DoubleSide,
+            clearCoat:0.01,
+            clearCoatRoughness:0.01
+        });
+        clothMaterial.needsUpdate = true;
+//            clothMaterial.wireframe = true;
+        clothMesh = new THREE.Mesh(clothGeometry,clothMaterial);
+        clothMesh.castShadow = true;
+        clothMesh.receiveShadow = true;
+
+        clothMesh.geometry.rotateX(Math.PI/2);
+//            clothMesh.translateOnAxis(0,-clothHeight/2,0);
+		testGroup.add(clothMesh);
+//        markerRoot.add( clothMesh );
+
+        // Cloth physic object
+//            console.log(clothPos.x + "," + clothPos.y);
+        var softBodyHelpers = new Ammo.btSoftBodyHelpers();
+        var clothCorner00 = new Ammo.btVector3( clothPos.x - clothWidth/2, clothPos.y + clothHeight/2, clothPos.z);
+        var clothCorner01 = new Ammo.btVector3( clothPos.x + clothWidth/2, clothPos.y + clothHeight/2, clothPos.z);
+        var clothCorner10 = new Ammo.btVector3( clothPos.x - clothWidth/2, clothPos.y - clothHeight/2, clothPos.z);
+        var clothCorner11 = new Ammo.btVector3( clothPos.x + clothWidth/2, clothPos.y - clothHeight/2, clothPos.z);
+
+        var clothSoftBody = new softBodyHelpers.CreatePatch(physicsWorld.getWorldInfo(), clothCorner00, clothCorner01, clothCorner10, clothCorner11, clothNumSegmentsX +1 , clothNumSegmentsY +1 , 0, true);
+        softBodyConfig = clothSoftBody.get_m_cfg();
+        //????????
+        softBodyConfig.set_viterations(10);
+        softBodyConfig.set_piterations(10);
+
+
+///////////////////////////////IMPORTANT/////////////////////////////////////////
+//            sbConfig.set_viterations( 40 );
+//            sbConfig.set_piterations( 40 );
+
+        // Damping coefficient [0,1] 阻尼系数
+//            softBodyConfig.set_kDP( 0.0001 );
+        // Drag coefficient [0,+inf] 阻力系数
+        softBodyConfig.set_kDG ( 0.02 );
+        // Lift coefficient [0,+inf] 升力系数
+        softBodyConfig.set_kLF( 0.0001 );
+        // (不可用） Pressure coefficient [-inf,+inf] 压力系数
+//            softBodyConfig.set_kPR( -1 );
+        // Volume conversation coefficient [0,+inf] 体积守恒系数
+        softBodyConfig.set_kVC( 0.0001 );
+        // Dynamic friction coefficient [0,1] 动态摩擦系数
+//            softBodyConfig.set_kDF( 0.01 );
+        // Pose matching coefficient [0,1] 姿态匹配系数
+//            softBodyConfig.set_kMT( 0.5 );
+        // Rigid contacts hardness [0,1] 刚接触硬度
+//            softBodyConfig.set_kCHR( 0.01 );
+        // Kinetic contacts hardness [0,1] 动触点硬度
+//            softBodyConfig.set_kKHR( 1 );
+        // Soft contacts hardness [0,1] 软接触硬度
+//            softBodyConfig.set_kSHR( 1 );
+        // Anchors hardness [0,1] 锚具的硬度
+//            softBodyConfig.set_kAHR( 1 );
+        // kSRHR_CL; Soft vs rigid hardness [0,1] (cluster only)
+//            softBodyConfig.set_kSRHR_CL( 0 );
+//            // kSKHR_CL; Soft vs kinetic hardness [0,1] (cluster only)
+//            softBodyConfig.set_kSKHR_CL( 0 );
+//            // kSSHR_CL; Soft vs soft hardness [0,1] (cluster only)
+//            softBodyConfig.set_kSSHR_CL( 0 );
+//            // kSK_SPLT_CL; Soft vs rigid impulse split [0,1] (cluster only)
+//            softBodyConfig.set_kSK_SPLT_CL( 0 );
+//            // kSS_SPLT_CL; Soft vs rigid impulse split [0,1] (cluster only) 姿势最大体积比
+//            softBodyConfig.set_kSS_SPLT_CL ( 0 );
+//            //Maximum volume ratio for pose
+        softBodyConfig.set_maxvolume ( 0 );
+        // timescale
+        softBodyConfig.set_timescale( 1 );
+//            // Velocities solver iterations
+//            softBodyConfig.set_viterations( 0 );
+//            // Positions solver iterations
+//            softBodyConfig.set_piterations( 0 );
+//            // Drift solver iterations
+//            softBodyConfig.set_diterations( 0 );
+//            // Cluster solver iterations
+//            softBodyConfig.set_citerations( 0 );
+        // Soft-soft and soft-rigid collisions 碰撞标记
+//            softBodyConfig.set_collisions( 0x11 );
+
+
+
+
+        // Time scale
+//            softBodyConfig.timescale = ?;
+
+//            clothSoftBody.get_m_materials().at( 0 ).set_m_kLST( 0.5 );
+//            clothSoftBody.get_m_materials().at( 0 ).set_m_kAST( 0.5 );
+///////////////////////////////IMPORTANT/////////////////////////////////////////
+
+
+//            clothMesh.geometry.rotateX(Math.PI/3);
+//            clothSoftBody.appendMaterial(1,1,1,1);
+//            console.log(clothSoftBody.material);
+        clothSoftBody.setTotalMass(clothMass, false);
+        Ammo.castObject( clothSoftBody, Ammo.btCollisionObject ).getCollisionShape().setMargin( margin );
+        physicsWorld.addSoftBody( clothSoftBody , 1, -1);   //add softbody into the physics world
+        clothMesh.userData.physicsBody = clothSoftBody;
+        // Disable deactivation
+        clothSoftBody.setActivationState( 4 );
+    }
+
+    function initArm() {
+
+        var baseMaterial = new THREE.MeshPhongMaterial({color:0x222222});
+
+        var armMass = 1;
+        var armLength = clothWidth;
+        var pos = new THREE.Vector3();
+        var quat = new THREE.Quaternion();
+        pos.set( 0, 0, 0);
+        quat.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
+        arm = createParalellepiped( 0.5, 0.5, armLength, armMass, pos, quat, baseMaterial);
+        arm.castShadow = false;
+        arm.receiveShadow = true;
+
+        var influence = 1;
+        clothMesh.userData.physicsBody.appendAnchor( 0, arm.userData.physicsBody, false, influence );
+        clothMesh.userData.physicsBody.appendAnchor( clothNumSegmentsX/3, arm.userData.physicsBody, false, influence );
+        clothMesh.userData.physicsBody.appendAnchor( clothNumSegmentsX/3*2, arm.userData.physicsBody, false, influence );
+        clothMesh.userData.physicsBody.appendAnchor( clothNumSegmentsX, arm.userData.physicsBody, false, influence );
+
+        var baseMass = 0;
+        pos.set( 0, 0, clothHeight/2);
+        quat.set( 0, 0, 0, 1 );
+        var base = createParalellepiped( 0.2, 0.2, clothHeight, baseMass, pos, quat, baseMaterial );
+        base.castShadow = false;
+        base.receiveShadow = true;
+
+        var pivotA = new Ammo.btVector3( 0, 0, -clothHeight/2 );
+        var pivotB = new Ammo.btVector3( 0, 0, 0 );
+        var axisA = new Ammo.btVector3( 0, 0, 1 );
+        var axisB = new Ammo.btVector3( 0, 1, 0 );
+        hinge = new Ammo.btHingeConstraint( base.userData.physicsBody, arm.userData.physicsBody, pivotA, pivotB, axisA, axisB, true );
+        physicsWorld.addConstraint( hinge, true );
+//            console.log(hinge);
+    }
+
+//	onRenderFcts.push(function(){
+//		mesh.rotation.x += 0.1
+//	})
+//	testGroup.scale = new THREE.Vector3(0.1,0.1,0.1);
+    markerRoot.add( testGroup );
+	//////////////////////////////////////////////////////////////////////////////////
+	//		render the whole thing on the page
+	//////////////////////////////////////////////////////////////////////////////////
+	var stats = new Stats();
+	document.body.appendChild( stats.dom );
+	// render the scene
+	onRenderFcts.push(function(){
+		renderer.render( scene, camera );
+		stats.update();
+	});
+
+	// run the rendering loop
+	var lastTimeMsec= null;
+	requestAnimationFrame(function animate(nowMsec){
+		// keep looping
+		requestAnimationFrame( animate );
+		// measure time
+		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60;
+		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec);
+		lastTimeMsec	= nowMsec;
+		// call each update function
+		onRenderFcts.forEach(function(onRenderFct){
+			onRenderFct(deltaMsec/1000, nowMsec/1000)
+		})
+	})
+</script></body>
